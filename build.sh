@@ -11,7 +11,7 @@ version=$2
 docker build -f $imageName/Dockerfile -t $imageName . && \
 
 ## 登陆阿里云镜像
-docker login --username=398757724@qq.com -p=zhangke19940617 registry.cn-hangzhou.aliyuncs.com  &&\
+docker login --username=${username} -p=${password} registry.cn-hangzhou.aliyuncs.com  &&\
 # ## 拉取镜像
 # docker pull registry.cn-hangzhou.aliyuncs.com/fengxiu/jupyter
 
