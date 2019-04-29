@@ -21,6 +21,7 @@ USER root
 RUN ln -s $HOME/go/bin/gophernotes /usr/bin/gophernotes
 USER $NB_UID
 ## 设置pip镜像源是阿里源
+RUN mkdir $HOME/.pip
 COPY ./.pip $HOME/.pip
 ## 配置jupyter扩展
 RUN pip install jupyter_contrib_nbextensions && \
@@ -28,4 +29,5 @@ RUN pip install jupyter_contrib_nbextensions && \
     pip install jupyter_nbextensions_configurator && \
     jupyter nbextensions_configurator enable --user 
 ## 设置jupyter
+RUN mkdir $HOME/.jupyter
 COPY .jupyter $HOME/.jupyter
