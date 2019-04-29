@@ -18,8 +18,8 @@ docker login --username=${username} -p=${password} registry.cn-hangzhou.aliyuncs
 # docker pull registry.cn-hangzhou.aliyuncs.com/fengxiu/jupyter
 
 ## 标记镜像
-docker tag $imageName registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName && \
-docker push registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName
+docker tag $imageName registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName:$version && \
+docker push registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName:$version
 
 # 标记为latest
 docker tag $imageName registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName && \
