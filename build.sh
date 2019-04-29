@@ -9,7 +9,7 @@ fi
 imageName=$1
 version=$2
 cd $imageName
-pwd 
+
 docker build  -t $imageName . && \
 
 ## 登陆阿里云镜像
