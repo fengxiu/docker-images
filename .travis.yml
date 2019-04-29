@@ -1,9 +1,12 @@
 language: python
 os:
   - linux
+cache:
+  directories:
+    - /home/travis/.rvm/
 services:
   - docker
 # before_install:
 
 script:
-  - ./build.sh jupyter 1.0
+  - ./build.sh jupyter 1.01
