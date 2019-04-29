@@ -8,7 +8,9 @@ then
 fi
 imageName=$1
 version=$2
-docker build -f $imageName/Dockerfile -t $imageName . && \
+cd $imageName
+pwd 
+docker build  -t $imageName . && \
 
 ## 登陆阿里云镜像
 docker login --username=${username} -p=${password} registry.cn-hangzhou.aliyuncs.com  &&\
