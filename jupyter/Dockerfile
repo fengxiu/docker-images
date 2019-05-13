@@ -30,4 +30,4 @@ RUN pip install jupyter_contrib_nbextensions && \
     jupyter nbextensions_configurator enable --user 
 ## 设置jupyter
 RUN rm -rf $HOME/.jupyter && mkdir $HOME/.jupyter
-COPY .jupyter $HOME/.jupyter
+COPY .jupyter $HOME/.jupyter 
