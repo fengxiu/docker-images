@@ -10,3 +10,4 @@ services:
 
 script:
   - ./build.sh jupyter 1.01
+  - ./build.sh ubuntu  0.1
