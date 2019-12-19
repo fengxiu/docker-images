@@ -24,31 +24,7 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list &
 # USER $USERNAME
 # WORKDIR /home/$USERNAME
 
-# RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
-#     tar -xzf install-tl-unx.tar.gz 
-# RUN cd install-tl*  && \
-#     sudo ./install-tl -no-gui -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
 
-# RUN echo 'export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH' >>/etc/profile &&\
-#     echo 'export MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH' >>/etc/profile&&\
-#     echo 'export INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH' >>/etc/profile
-
-# RUN tex --version && tlmgr --version
-# # RUN apt-get -y install --no-install-recommends texlive 
-# # RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
-# # RUN apt-get -y install --no-install-recommends texlive-xetex 
-
-# ## 解决perl: warning: Setting locale failed.
-# # ENV LC_ALL=C
-# # RUN apt-get install xzdec
-# # RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
-# # # RUN  tlmgr install framed
-# # RUN tlmgr init-usertree
-# # RUN tlmgr update  --usermode --self 
-# # RUN tlmgr update --all
-
-
-# FROM debian:testing
 
 ARG USER_NAME=latex
 ARG USER_HOME=/home/latex
@@ -95,24 +71,26 @@ RUN apt-get update -q && apt-get install -qy \
 RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
     mkdir /install-tl-unx; \
     tar -xf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
-    echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
     /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
+    # echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
+    # /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
     rm -r /install-tl-unx; \
     rm install-tl-unx.tar.gz
 
 ENV PATH="/usr/local/texlive/2019/bin/x86_64-linux:${PATH}"
 
-ENV HOME /data
+ENV HOME /home/latex
 
-WORKDIR /data
+WORKDIR /home/latex/workdir
 
 # Install latex packages
 RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet && \
     tlmgr update --self; \
     tlmgr install latexmk; \
+    tlmgr install scheme-full;\
     tlmgr update --all
 
-VOLUME ["/data"]
+VOLUME ["/home/latex/workdir"]
 
 
 
