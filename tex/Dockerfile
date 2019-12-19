@@ -67,26 +67,29 @@ RUN apt-get update -q && apt-get install -qy \
     rm -rf /var/lib/apt/lists/*
 
 # Install TexLive with scheme-basic
+# RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
+#     mkdir /install-tl-unx; \
+#     tar -xf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
+#     echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
+#     /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
+#     rm -r /install-tl-unx; \
+#     rm install-tl-unx.tar.gz
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
+tar -xzf install-tl-unx.tar.gz 
+RUN cd install-tl-* && \
+    ./install-tl -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
 
-RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
-    mkdir /install-tl-unx; \
-    tar -xf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
-    echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
-    /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
-    rm -r /install-tl-unx; \
-    rm install-tl-unx.tar.gz
 
 ENV PATH="/usr/local/texlive/2019/bin/x86_64-linux:${PATH}"
 
 ENV HOME /home/latex
-
+ENV LC_ALL=c
 WORKDIR /home/latex/workdir
 
 # Install latex packages
 RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet && \
     tlmgr update --self; \
     tlmgr install latexmk; \
-    tlmgr install scheme-full;\
     tlmgr update --all
 
 VOLUME ["/home/latex/workdir"]
