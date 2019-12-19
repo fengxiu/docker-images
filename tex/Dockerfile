@@ -10,7 +10,8 @@ RUN apt install -y openssh-server && \
     sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config 
 # 需要使用下面指令启动sshd服务
 # service ssh restart
-RUN apt-get -y install --no-install-recommends texlive-latex-base
-RUN apt-get -y install --no-install-recommends texlive-latex-extra texlive-xetex texlive-publishers
+RUN apt-get -y install --no-install-recommends texlive-lang-chinese texlive-xetex texlive
+# RUN apt-get -y install --no-install-recommends texlive-latex-base
+# RUN apt-get -y install --no-install-recommends texlive-latex-extra texlive-xetex texlive-publishers
 
 
