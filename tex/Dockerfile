@@ -1,9 +1,9 @@
 FROM ubuntu:18.04
 
-# ## 设置ubuntu镜像源是阿里
-# RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
-#     apt-get clean && \ 
-#     apt-get update 
+## 设置ubuntu镜像源是阿里
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
+    apt-get clean && \ 
+    apt-get update 
 
 # # 安装openssh
 # RUN apt install -y openssh-server && \
