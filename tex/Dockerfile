@@ -77,11 +77,12 @@ RUN apt-get update -q && apt-get install -qy \
 RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
 tar -xzf install-tl-unx.tar.gz 
 RUN cd install-tl-* && \
-    ./install-tl -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
+    ./install-tl -profile texlive.profile 
 
 
 ENV PATH="/usr/local/texlive/2019/bin/x86_64-linux:${PATH}"
-
+ENV MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH
+ENV INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH
 ENV HOME /home/latex
 ENV LC_ALL=c
 WORKDIR /home/latex/workdir
