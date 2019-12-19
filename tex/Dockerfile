@@ -107,8 +107,8 @@ ENV HOME /data
 WORKDIR /data
 
 # Install latex packages
-
-RUN tlmgr update --self; \
+RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet && \
+    tlmgr update --self; \
     tlmgr install latexmk; \
     tlmgr update --all
 
