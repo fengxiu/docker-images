@@ -28,7 +28,8 @@ WORKDIR /home/$USERNAME
 RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -xzf install-tl-unx.tar.gz 
 RUN  apt-get install -y sudo \
-    &&  ${USERNAME} ALL=\(root\) NOPASSWD:ALL
+    && echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN cd install-tl* && \
     sudo ./install-tl -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
 
