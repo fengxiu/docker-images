@@ -11,4 +11,5 @@ services:
 script:
   # - ./build.sh jupyter 1.01
   # - ./build.sh ubuntu  0.1
-  - ./build.sh node    10
+  #- ./build.sh node    10
+  - ./build.sh tex    0.1
