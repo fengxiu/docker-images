@@ -1,4 +1,4 @@
-# FROM ubuntu:18.04
+FROM ubuntu:18.04
 
 # ## 设置ubuntu镜像源是阿里
 # RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
@@ -48,7 +48,7 @@
 # # RUN tlmgr update --all
 
 
-FROM debian:testing
+# FROM debian:testing
 
 ARG USER_NAME=latex
 ARG USER_HOME=/home/latex
