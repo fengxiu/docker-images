@@ -10,21 +10,6 @@ RUN apt install -y openssh-server && \
     sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config 
 # 需要使用下面指令启动sshd服务
 # service ssh restart
-RUN apt-get -y install --no-install-recommends texlive 
-# RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
-# RUN apt-get -y install --no-install-recommends texlive-xetex 
-
-## 解决perl: warning: Setting locale failed.
-ENV LC_ALL=C
-RUN apt-get install xzdec
-RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
-# RUN  tlmgr install framed
-RUN tlmgr init-usertree
-RUN tlmgr update  --usermode --self 
-# RUN tlmgr update --all
-
-
-
 
 ARG USERNAME=tex
 ARG USER_UID=1000
@@ -40,14 +25,26 @@ USER $USERNAME
 WORKDIR /home/$USERNAME
 
 
-#     && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-#     && chmod 0440 /etc/sudoers.d/$USERNAME
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
+        tar -xzf install-tl-unx.tar.gz && ls -al
 
 
-# ## 更新tlmgr
+
+
+# RUN apt-get -y install --no-install-recommends texlive 
+# RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
+# RUN apt-get -y install --no-install-recommends texlive-xetex 
+
+## 解决perl: warning: Setting locale failed.
+# ENV LC_ALL=C
+# RUN apt-get install xzdec
+# RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
+# # RUN  tlmgr install framed
+# RUN tlmgr init-usertree
+# RUN tlmgr update  --usermode --self 
 # RUN tlmgr update --all
 
-# RUN apt-get -y install --no-install-recommends texlive-latex-base
-# RUN apt-get -y install --no-install-recommends texlive-latex-extra texlive-xetex texlive-publishers
+
+
 
 
