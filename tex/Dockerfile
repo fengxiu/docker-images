@@ -14,6 +14,14 @@ RUN apt-get -y install --no-install-recommends texlive
 RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
 RUN apt-get -y install --no-install-recommends texlive-xetex 
 
+## 解决perl: warning: Setting locale failed.
+ENV LC_ALL=C
+RUN apt-get install xzdec
+RUN tlmgr update --self && tlmgr update --all
+
+
+
+
 ARG USERNAME=tex
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -27,13 +35,11 @@ RUN echo "$USERNAME:$PASSWORD" | chpasswd
 USER $USERNAME
 WORKDIR /home/$USERNAME
 
+
 #     && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
 #     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 
-
-# ## 解决perl: warning: Setting locale failed.
-# RUN apt-get -y install --no-install-recommends language-pack-zh-hans
 # ## 更新tlmgr
 # RUN tlmgr update --all
 
