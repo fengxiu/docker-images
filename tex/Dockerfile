@@ -19,7 +19,7 @@ ENV LC_ALL=C
 RUN apt-get install xzdec
 # RUN  tlmgr install framed
 RUN tlmgr init-usertree
-# RUN tlmgr update --self 
+RUN tlmgr update  --usermode --self 
 # RUN tlmgr update --all
 
 
