@@ -27,7 +27,7 @@ WORKDIR /home/$USERNAME
 RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -xzf install-tl-unx.tar.gz 
 RUN cd install-tl*  && \
-    sudo ./install-tl -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
+    sudo ./install-tl -no-gui -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
 
 RUN echo 'export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH' >>/etc/profile &&\
     echo 'export MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH' >>/etc/profile&&\
