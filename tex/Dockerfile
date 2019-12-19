@@ -10,7 +10,11 @@ RUN apt install -y openssh-server && \
     sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config 
 # 需要使用下面指令启动sshd服务
 # service ssh restart
-RUN apt-get -y install --no-install-recommends texlive texlive-lang-chinese texlive-xetex 
+RUN apt-get -y install --no-install-recommends texlive 
+RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
+RUN apt-get -y install --no-install-recommends texlive-xetex  
+
+
 
 # ## 解决perl: warning: Setting locale failed.
 # RUN apt-get -y install --no-install-recommends language-pack-zh-hans
