@@ -26,12 +26,14 @@ WORKDIR /home/$USERNAME
 
 
 RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
-    tar -xzf install-tl-unx.tar.gz &&  cd install-tl* \
-    sudo ./install-tl -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
+    tar -xzf install-tl-unx.tar.gz &&  cd install-tl* 
+RUN sudo ./install-tl -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/
 
+RUN  echo 'export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH' >>~/.bashrc &&\
+    echo 'export MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH' >> ~/.bashrc &&\
+    echo 'export INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH' >> ~/.bashrc
 
-
-
+RUN tex --version && tlmgr --version
 # RUN apt-get -y install --no-install-recommends texlive 
 # RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
 # RUN apt-get -y install --no-install-recommends texlive-xetex 
