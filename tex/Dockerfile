@@ -19,7 +19,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get install -y sudo
 RUN useradd --create-home --no-log-init --shell /bin/bash $USERNAME
-RUN adduser $USERNAME sudo 
+## sudo 不需要密码
+RUN echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN echo "$USERNAME:$PASSWORD" | chpasswd
 USER $USERNAME
 WORKDIR /home/$USERNAME
