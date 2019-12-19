@@ -17,6 +17,7 @@ RUN apt-get -y install --no-install-recommends texlive
 ## 解决perl: warning: Setting locale failed.
 ENV LC_ALL=C
 RUN apt-get install xzdec
+RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
 # RUN  tlmgr install framed
 RUN tlmgr init-usertree
 RUN tlmgr update  --usermode --self 
