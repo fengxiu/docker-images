@@ -11,8 +11,8 @@ RUN apt install -y openssh-server && \
 # 需要使用下面指令启动sshd服务
 # service ssh restart
 RUN apt-get -y install --no-install-recommends texlive 
-RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
-RUN apt-get -y install --no-install-recommends texlive-xetex 
+# RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
+# RUN apt-get -y install --no-install-recommends texlive-xetex 
 
 ## 解决perl: warning: Setting locale failed.
 ENV LC_ALL=C
