@@ -71,7 +71,7 @@ RUN apt-get update -q && apt-get install -qy \
 RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
     mkdir /install-tl-unx; \
     tar -xf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
-    echo "selected_scheme scheme-full" >> /install-tl-unx/texlive.profile; \
+    echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
     /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
     rm -r /install-tl-unx; \
     rm install-tl-unx.tar.gz
