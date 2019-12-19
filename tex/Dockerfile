@@ -17,9 +17,10 @@ RUN apt-get -y install --no-install-recommends texlive-xetex
 ## 解决perl: warning: Setting locale failed.
 ENV LC_ALL=C
 RUN apt-get install xzdec
+RUN  tlmgr install framed
 # RUN tlmgr init-usertree
-RUN tlmgr update --self 
-RUN tlmgr update --all
+# RUN tlmgr update --self 
+# RUN tlmgr update --all
 
 
 
