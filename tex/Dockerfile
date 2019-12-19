@@ -12,7 +12,23 @@ RUN apt install -y openssh-server && \
 # service ssh restart
 RUN apt-get -y install --no-install-recommends texlive 
 RUN apt-get -y install --no-install-recommends texlive-lang-chinese  
-RUN apt-get -y install --no-install-recommends texlive-xetex  
+RUN apt-get -y install --no-install-recommends texlive-xetex 
+
+ARG USERNAME=tex
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+ARG PASSWORD=123456
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get install -y sudo
+RUN useradd --create-home --no-log-init --shell /bin/bash $USERNAME
+RUN adduser $USERNAME sudo 
+RUN echo "$USERNAME:$PASSWORD" | chpasswd
+USER $USERNAME
+WORKDIR /home/$USERNAME
+
+#     && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+#     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 
 
