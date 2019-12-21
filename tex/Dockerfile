@@ -3,29 +3,8 @@ FROM ubuntu:18.04
 ## 设置ubuntu镜像源是阿里
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
     apt-get clean && \ 
-    apt-get update 
-
-# # 安装openssh
-# RUN apt install -y openssh-server && \
-#     sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config 
-# # 需要使用下面指令启动sshd服务
-# # service ssh restart
-# ARG USERNAME=tex
-# ARG USER_UID=1000
-# ARG USER_GID=$USER_UID
-# ARG PASSWORD=123456
-# ENV DEBIAN_FRONTEND=noninteractive
-
-# RUN apt-get install -y sudo
-# RUN useradd --create-home --no-log-init --shell /bin/bash $USERNAME
-# ## sudo 不需要密码
-# RUN echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-# RUN echo "$USERNAME:$PASSWORD" | chpasswd
-# USER $USERNAME
-# WORKDIR /home/$USERNAME
-
-
-
+    apt-get update -q
+ 
 ARG USER_NAME=latex
 ARG USER_HOME=/home/latex
 ARG USER_ID=1000
@@ -38,6 +17,7 @@ RUN adduser \
     --disabled-password \
     "$USER_NAME"
 
+## 安装工具
 ARG WGET=wget
 ARG GIT=git
 ARG MAKE=make
@@ -46,7 +26,7 @@ ARG PCITEPROC=pandoc-citeproc
 ARG PYGMENTS=python3-pygments
 ARG FIG2DEV=fig2dev
 
-RUN apt-get update -q && apt-get install -qy \
+RUN  apt-get install -qy \
     # some auxiliary tools
     "$WGET" \
     "$GIT" \
@@ -67,25 +47,21 @@ RUN apt-get update -q && apt-get install -qy \
     rm -rf /var/lib/apt/lists/*
 
 # Install TexLive with scheme-basic
-# RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
-#     mkdir /install-tl-unx; \
-#     tar -xf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
-#     echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
-#     /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
-#     rm -r /install-tl-unx; \
-#     rm install-tl-unx.tar.gz
-RUN wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
-tar -xzf install-tl-unx.tar.gz 
-RUN cd install-tl-* && \
-    ./install-tl -profile texlive.profile 
+RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
+    mkdir /install-tl-unx; \
+    tar -xf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1; \
+    echo "selected_scheme scheme-basic" >> /install-tl-unx/texlive.profile; \
+    /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile \
+    --location https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet ; \
+    rm -r /install-tl-unx; \
+    rm install-tl-unx.tar.gz
+
 
 
 ENV PATH="/usr/local/texlive/2019/bin/x86_64-linux:${PATH}"
 ENV MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH
 ENV INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH
-ENV HOME /home/latex
-ENV LC_ALL=c
-WORKDIR /home/latex/workdir
+
 
 # Install latex packages
 RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet && \
@@ -93,6 +69,10 @@ RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/te
     tlmgr install latexmk; \
     tlmgr update --all
 
+
+ENV HOME /home/latex
+ENV LC_ALL=c
+WORKDIR /home/latex/workdir
 VOLUME ["/home/latex/workdir"]
 
 
