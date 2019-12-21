@@ -70,10 +70,10 @@ RUN echo "latex ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER latex
 
 # Install latex packages
-RUN  sudo tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
-    sudo tlmgr update --self && \
-    # tlmgr install latexmk  collection-xetex && \
-    # tlmgr update --all
+RUN  tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
+     tlmgr update --self && \
+    tlmgr install latexmk  collection-xetex && \
+    tlmgr update --all
 # ENV HOME USER_HOME
 WORKDIR /home/latex/workdir
 VOLUME ["/home/latex/workdir"]
