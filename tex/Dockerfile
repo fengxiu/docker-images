@@ -147,8 +147,8 @@ ENV HOME /home/latex
 WORKDIR /home/latex
 
 # Install latex packages
-RUN tlmgr update --self; \
-    tlmgr install latexmk; \
-    tlmgr update --all
+RUN sudo tlmgr update --self; \
+    sudo tlmgr install latexmk; \
+    sudo tlmgr update --all
 
 VOLUME ["/home/latex"]
