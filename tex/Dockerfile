@@ -142,13 +142,14 @@ ENV MANPATH="/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH"
 ENV INFOPATH="/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH"
 RUN apt-get update && apt-get install sudo &&\
      echo "latex ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-USER latex
+
+ENV LC_ALL=C
 ENV HOME /home/latex
 WORKDIR /home/latex
 
 # Install latex packages
-RUN sudo tlmgr update --self; \
-    sudo tlmgr install latexmk; \
-    sudo tlmgr update --all
+RUN  tlmgr update --self; \
+     tlmgr install latexmk; \
+     tlmgr update --all
 
 VOLUME ["/home/latex"]
