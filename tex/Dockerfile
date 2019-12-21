@@ -4,18 +4,6 @@ FROM ubuntu:18.04
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
     apt-get clean && \ 
     apt-get update -q
- 
-ARG USER_NAME=latex
-ARG USER_HOME=/home/latex
-ARG USER_ID=1000
-ARG USER_GECOS=LaTeX
-
-RUN adduser \
-    --home "$USER_HOME" \
-    --uid $USER_ID \
-    --gecos "$USER_GECOS" \
-    --disabled-password \
-    "$USER_NAME"
 
 ## 安装工具
 ARG WGET=wget
@@ -46,6 +34,21 @@ RUN  apt-get install -qy \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
 
+## 设置user用户    
+ARG USER_NAME=latex
+ARG USER_HOME=/home/latex
+ARG USER_ID=1000
+ARG USER_GECOS=LaTeX
+
+RUN adduser \
+    --home "$USER_HOME" \
+    --uid $USER_ID \
+    --gecos "$USER_GECOS" \
+    --disabled-password \
+    "$USER_NAME"
+
+ENV LC_ALL=C
+ENV HOME USER_HOME
 # Install TexLive with scheme-basic
 RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
     mkdir /install-tl-unx; \
@@ -63,16 +66,13 @@ ENV MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH
 ENV INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH
 
 
-
-ENV LC_ALL=C
-
 # USER latex;
 # Install latex packages
-# RUN  tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
-    # tlmgr update --self && \
-    # tlmgr install latexmk  collection-xetex && \
-    # tlmgr update --all
-# ENV HOME USER_HOME
+RUN  tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
+    tlmgr update --self && \
+    tlmgr install latexmk  collection-xetex && \
+    tlmgr update --all
+
 WORKDIR /home/latex/workdir
 VOLUME ["/home/latex/workdir"]
 
