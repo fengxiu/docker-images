@@ -64,7 +64,7 @@ ENV INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH
 
 
 
-ENV LC_ALL=c
+ENV LC_ALL=C
 
 # USER latex;
 # Install latex packages
