@@ -137,17 +137,18 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
     /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile; \
     rm -r /install-tl-unx; \
     rm install-tl-unx.tar.gz
-
 ENV PATH="/usr/local/texlive/2019/bin/x86_64-linux:${PATH}"
-
-ENV HOME /data
-
-WORKDIR /data
+ENV MANPATH="/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH"
+ENV INFOPATH="/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH"
+RUN apt-get install sudo &&\
+     echo "latex ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER latex
+ENV HOME /home/latex
+WORKDIR /home/latex
 
 # Install latex packages
-
 RUN tlmgr update --self; \
     tlmgr install latexmk; \
     tlmgr update --all
 
-VOLUME ["/data"]
+VOLUME ["/home/latex"]
