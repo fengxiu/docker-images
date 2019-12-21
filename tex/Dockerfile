@@ -148,8 +148,9 @@ ENV HOME /home/latex
 WORKDIR /home/latex
 
 # Install latex packages
-RUN  tlmgr update --self; \
-     tlmgr install latexmk; \
-     tlmgr update --all
+RUN  tlmgr update --self &&  \
+    tlmgr install latexmk collection-xetex  collection-latexrecommended collection-latexextra&&  \
+     ## 跟新宏包索引
+     texhash && mktexlsr
 
 VOLUME ["/home/latex"]
