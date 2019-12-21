@@ -46,9 +46,13 @@ RUN adduser \
     --gecos "$USER_GECOS" \
     --disabled-password \
     "$USER_NAME"
-
+##  设置用户不需要密码sudo
+RUN echo "latex ALL=(ALL) NOPASSWD: ALL" >> etc/sudoers
+USER latex;
 ENV LC_ALL=C
 ENV HOME USER_HOME
+
+
 # Install TexLive with scheme-basic
 RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
     mkdir /install-tl-unx; \
@@ -66,12 +70,11 @@ ENV MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH
 ENV INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH
 
 
-# USER latex;
 # Install latex packages
-RUN  tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
-    tlmgr update --self && \
-    tlmgr install latexmk  collection-xetex && \
-    tlmgr update --all
+RUN sudo tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
+    sudo tlmgr update --self && \
+    sudo tlmgr install latexmk  collection-xetex && \
+    sudo tlmgr update --all
 
 WORKDIR /home/latex/workdir
 VOLUME ["/home/latex/workdir"]
