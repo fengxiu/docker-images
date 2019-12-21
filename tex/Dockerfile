@@ -66,8 +66,8 @@ ENV INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH
 
 ENV LC_ALL=C
 ENV HOME=${USER_HOME}
-RUN echo "latex ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-USER latex
+# RUN echo "latex ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+# USER latex
 
 # Install latex packages
 RUN  tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
