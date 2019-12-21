@@ -63,16 +63,18 @@ ENV MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH
 ENV INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH
 
 
-ENV HOME USER_HOME
+# ENV HOME USER_HOME
 ENV LC_ALL=c
-WORKDIR /home/latex/workdir
-USER latex;
+
+# USER latex;
 # Install latex packages
-RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet && \
+RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet ; \
+    tlmgr init-usertree ; \
     tlmgr update --self; \
     tlmgr install latexmk; \
     tlmgr update --all
-
+    
+WORKDIR /home/latex/workdir
 VOLUME ["/home/latex/workdir"]
 
 
