@@ -68,10 +68,9 @@ ENV LC_ALL=C
 
 # USER latex;
 # Install latex packages
-RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet ; \
-    tlmgr init-usertree ; \
-    tlmgr update --self; \
-    tlmgr install latexmk; \
+RUN  tlmgr init-usertree && tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
+    tlmgr update --self && \
+    tlmgr install latexmk  collection-xetex && \
     tlmgr update --all
 # ENV HOME USER_HOME
 WORKDIR /home/latex/workdir
