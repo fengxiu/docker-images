@@ -157,9 +157,9 @@ RUN  tlmgr update --self &&  \
 ## 安装windows字体 
 RUN apt-get install -qy fontconfig unzip
 RUN wget https://github.com/fengxiutianya/font/archive/master.zip && \
-    ls -al && unzip master.zip &&ls -al
-RUN cd font-master &&\
-    mkdir -p /usr/share/fonts/windows && mv windows /usr/lshare/fonts/windows &&\
+    unzip master.zip &&cd font-master &&\
+    mkdir -p /usr/share/fonts/windows &&\
+    mv windows /usr/share/fonts/windows &&\
     fc-cache -fv
 
 
