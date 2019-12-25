@@ -147,10 +147,21 @@ ENV LC_ALL=C
 ENV HOME /home/latex
 WORKDIR /home/latex
 
+
 # Install latex packages
 RUN  tlmgr update --self &&  \
-    tlmgr install latexmk collection-xetex  collection-latexrecommended collection-latexextra&&  \
-     ## 跟新宏包索引
-     texhash && mktexlsr
+    tlmgr install latexmk collection-xetex &&  \
+    ## 更新宏包索引
+    texhash && mktexlsr
 
+## 安装windows字体 
+RUN apt-get install -qy fontconfig unzip
+RUN wget https://github.com/fengxiutianya/font/archive/master.zip && \
+    unzip font-master.zip && cd font-master &&\
+    mkdir -p /usr/share/fonts/windows && mv windows /usr/lshare/fonts/windows &&\
+    fc-cache -fv
+
+
+## 安装中文环境
+# collection-latexrecommended collection-latexextra
 VOLUME ["/home/latex"]
