@@ -7,7 +7,7 @@ cache:
 before_install:
   - docker load -i docker_images/images.tar || true
 before_cache:
-  - docker save -o docker_images/images.tar $(docker images tex -q)
+  - docker save -o docker_images/images.tar $(docker images -a -q)
 services:
   - docker
 
@@ -17,4 +17,3 @@ script:
   # - ./build.sh ubuntu  0.1
   #- ./build.sh node    10
   - ./build.sh tex    0.2
-  - docker images -a 

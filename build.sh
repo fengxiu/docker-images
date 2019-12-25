@@ -24,3 +24,7 @@ docker push registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName:$version
 # 标记为latest
 docker tag $imageName registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName && \
 docker push registry.cn-hangzhou.aliyuncs.com/fengxiu/$imageName
+
+
+## 开始删除不需要的多余镜像
+docker rmi -f $(docker images | grep "none" | awk '{print $3}') 
