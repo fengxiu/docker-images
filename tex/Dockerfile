@@ -157,12 +157,11 @@ RUN  tlmgr update --self &&  \
 ## 安装windows字体 
 RUN apt-get install -qy fontconfig unzip
 RUN wget https://github.com/fengxiutianya/font/archive/master.zip && \
-    unzip master.zip &&cd font-master &&\
+    unzip master.zip && cd font-master &&\
     mkdir -p /usr/share/fonts/windows &&\
     mv windows /usr/share/fonts/windows &&\
-    fc-cache -fv && cd .. && rm -rf font-master
-
-
-## 安装中文环境
-# collection-latexrecommended collection-latexextra
+    fc-cache -fv  
+RUN tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet &&\
+    ## 安装中文环境
+    tlmgr install scheme-medium
 VOLUME ["/home/latex"]
