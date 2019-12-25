@@ -160,7 +160,7 @@ RUN wget https://github.com/fengxiutianya/font/archive/master.zip && \
     unzip master.zip &&cd font-master &&\
     mkdir -p /usr/share/fonts/windows &&\
     mv windows /usr/share/fonts/windows &&\
-    fc-cache -fv
+    fc-cache -fv && cd .. && rm -rf font-master
 
 
 ## 安装中文环境
